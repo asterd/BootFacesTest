@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>BootsFaces Basic Page</title>
+    </h:head>
+    <h:body>
+        <b:container>
+            <b:row>
+                <b:column>
+                    <h1>Fist [TreeView]: simple!</h1>
+                    <h:form prependId="false">
+                    	<b:treeView model="#{test.treeModel}" action="#{test.itemClicked}" hideRootNode="false;" nodesExpanded="false" />
+                    </h:form>
+                </b:column>
+            </b:row>
+            <b:row>
+            	<b:column>
+            		<h1>Second [Tree]: much complex!</h1>
+            		<b:tree value="#{test.jsonModel}" nodeSelectionListener="#{test}" showIcon="true" showCheckbox="true" />
+            	</b:column>
+            </b:row>
+        </b:container>
+    </h:body>
+</html>
