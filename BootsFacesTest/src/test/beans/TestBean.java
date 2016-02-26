@@ -11,49 +11,39 @@ import net.bootsfaces.component.tree.event.TreeNodeEventListener;
 import net.bootsfaces.component.tree.event.TreeNodeSelectionEvent;
 import net.bootsfaces.component.tree.model.DefaultNodeImpl;
 import net.bootsfaces.component.tree.model.Node;
-import net.bootsfaces.component.treeView.model.TreeNode;
 
 
 @SessionScoped
 @ManagedBean(name = "test")
 public class TestBean implements TreeNodeEventListener {
-	private TreeNode treeModel;
 	private Node selectedNode;
 	private List<Node> checkedNodes = new ArrayList<Node>();
+	private String selectedColor;
 	
 	public TestBean() {
-		treeModel = new TreeNode();
-		treeModel.setIcon("icon-folder-open");
-		treeModel.setName("Root");
-		treeModel.setRoot(true);
-		
-		TreeNode child1 = new TreeNode("Child1", "ok-circle", "http://www.google.it");
-		TreeNode child2 = new TreeNode("Child2", "info-sign", "http://www.google.it");
-		TreeNode child3 = new TreeNode("Child3", "ok-circle", "http://www.google.it");
-		child3.getChildren().add(new TreeNode("Sub-Child-3.1", "comment", "#"));
-		TreeNode child4 = new TreeNode("Second Page", "info-sign", "", "/pages/second", "");
-		TreeNode child5 = new TreeNode("Action Link", "hand-up", "", "", "#{test.itemClicked}");
-		
-		treeModel.getChildren().add(child1);
-		treeModel.getChildren().add(child2);
-		treeModel.getChildren().add(child3);
-		treeModel.getChildren().add(child4);
-		treeModel.getChildren().add(child5);
-		
-	}
 
-	public TreeNode getTreeModel() {
-		return treeModel;
-	}
-
-	public void setTreeModel(TreeNode treeModel) {
-		this.treeModel = treeModel;
 	}
 	
-	public String itemClicked() {
-		System.out.println("Click on backend!");
-		return "";
+	public String getSelectedColor() {
+		return selectedColor;
 	}
+
+	public void setSelectedColor(String selectedColor) {
+		this.selectedColor = selectedColor;
+	}
+
+	public String getCheckedColumns() {
+		if(checkedNodes != null && checkedNodes.size() > 0){
+			StringBuilder sb = new StringBuilder();
+			sb.append("CHECKED NODES: ");
+			for(Node n: checkedNodes) {
+				sb.append(n.getText() + " : ");
+			}
+			return sb.toString();
+		}
+		return "NO CHECKED ITEMS";
+	}
+	public void setCheckedColumns(String column) { }
 	
 	public List<Node> getJsonModel() {
 		List<Node> nodeList = new ArrayList<Node>();
@@ -64,7 +54,9 @@ public class TestBean implements TreeNodeEventListener {
 		subNodes.add(new DefaultNodeImpl("Child1", "user"));
 		subNodes.add(new DefaultNodeImpl("Child2", "main"));
 		subNodes.add(new DefaultNodeImpl("Child3", "arrow-left"));
-		subNodes.add(new DefaultNodeImpl("Child4", "arrow-right"));
+		DefaultNodeImpl nx = new DefaultNodeImpl("Child4-Link", "arrow-right");
+		nx.setHRef("http://www.google.it");
+		subNodes.add(nx);
 		
 		DefaultNodeImpl child5 = new DefaultNodeImpl("Child5", "arrow-right");
 		child5.setColor("#FF0000");
@@ -81,8 +73,6 @@ public class TestBean implements TreeNodeEventListener {
 		
 		
 		return nodeList;
-		// return "[{\"text\":\"Parent 1\",\"nodes\":[{\"text\":\"Child 1\",\"nodes\":[{\"text\":\"Grandchild 1\"},{\"text\":\"Grandchild 2\"}]},{\"text\":\"Child 2\"}]},{\"text\":\"Parent 2\"},{\"text\":\"Parent 3\"},{\"text\":\"Parent 4\"},{\"text\":\"Parent 5\"}]";
-		
 	}
 
 	@Override
@@ -117,7 +107,30 @@ public class TestBean implements TreeNodeEventListener {
 	@Override
 	public void processValueUnchecked(TreeNodeCheckedEvent event) {
 		System.out.println("UNCHECKED NODE:" + event.getNode().getText());
-		checkedNodes.remove(event.getNode());
+		for(Node n : checkedNodes) {
+			if(n.getText().equals(event.getNode().getText())) {
+				checkedNodes.remove(n);
+				break;
+			}
+		}
+		// checkedNodes.remove(event.getNode());
+		
+	}
+
+	/**
+	 * Button methods for form test
+	 */
+	public void button1() {
+		System.out.println("SELECTED COLOR: " + selectedColor) ;
+		System.out.println("CLICKED: BUTTON 1");
+	}
+	public void button2() {
+		System.out.println("SELECTED COLOR: " + selectedColor) ;
+		System.out.println("CLICKED: BUTTON 2");
+	}
+	public void button3() {
+		System.out.println("SELECTED COLOR: " + selectedColor) ;
+		System.out.println("CLICKED: BUTTON 3");
 	}
 	
 }
