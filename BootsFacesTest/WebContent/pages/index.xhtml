@@ -14,7 +14,10 @@
 	            	<b:column>
 	            		<h1>[Tree]: javascript complex implementation</h1>
 	            		
-	            		<b:tree value="#{test.jsonModel}" nodeSelectionListener="#{test}" showCheckbox="true" update="chkItems" enableLinks="true" />
+	            		<b:tree value="#{test.jsonModel1}" nodeSelectionListener="#{test}" showCheckbox="true" update="chkItems" enableLinks="true" />
+	            		<br/>
+	            		<br/>
+	            		<b:tree value="#{test.jsonModel2}" nodeSelectionListener="#{test}" showCheckbox="true" update="chkItems" enableLinks="true" />
 	            		
 	            	</b:column>
 	            </b:row>
@@ -39,5 +42,13 @@
 				</b:row>
 		    </b:container>
 	    </h:form>
+	    <!--  b:container id="thirdContent">
+	    	<b:row>
+            	<b:column>
+            		<h1>[Accordion]: </h1>
+					<b:button id="toggler" value="Spalten" style="float:right;" size="sm" iconAwesome="calculator"/>
+			    </b:column>
+			</b:row>
+	    </b:container -->
     </h:body>
 </html>

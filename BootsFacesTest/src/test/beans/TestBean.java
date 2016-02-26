@@ -45,7 +45,7 @@ public class TestBean implements TreeNodeEventListener {
 	}
 	public void setCheckedColumns(String column) { }
 	
-	public List<Node> getJsonModel() {
+	public List<Node> getJsonModel1() {
 		List<Node> nodeList = new ArrayList<Node>();
 		nodeList.add(new DefaultNodeImpl("Parent1", "user"));
 		nodeList.add(new DefaultNodeImpl("Parent2", "envelope"));
@@ -70,6 +70,21 @@ public class TestBean implements TreeNodeEventListener {
 		parent3.setExpanded(false);
 		parent3.getSubNodes().addAll(subNodes);
 		nodeList.add(parent3);
+		
+		
+		return nodeList;
+	}
+	
+	public List<Node> getJsonModel2() {
+		List<Node> nodeList = new ArrayList<Node>();
+		Node n = new DefaultNodeImpl("Node1", "rocket");
+		n.setUseFaIcons(true);
+		
+		Node n1 = new DefaultNodeImpl("Node2", "soccer-ball-o");
+		n1.setUseFaIcons(true);
+		
+		nodeList.add(n);
+		nodeList.add(n1);
 		
 		
 		return nodeList;
