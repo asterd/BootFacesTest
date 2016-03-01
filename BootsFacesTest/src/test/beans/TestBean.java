@@ -3,8 +3,10 @@ package test.beans;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import net.bootsfaces.component.tree.event.TreeNodeCheckedEvent;
 import net.bootsfaces.component.tree.event.TreeNodeEventListener;
@@ -45,7 +47,8 @@ public class TestBean implements TreeNodeEventListener {
 	}
 	public void setCheckedColumns(String column) { }
 	
-	public List<Node> getJsonModel1() {
+	public Node getJsonModel1() {
+		Node rootNode = new DefaultNodeImpl("root", "arrow-right").withBackColor("#FF9988");
 		List<Node> nodeList = new ArrayList<Node>();
 		nodeList.add(new DefaultNodeImpl("Parent1", "user"));
 		nodeList.add(new DefaultNodeImpl("Parent2", "envelope"));
@@ -63,20 +66,30 @@ public class TestBean implements TreeNodeEventListener {
 		List<Node> subSubNodes = new ArrayList<Node>();
 		subSubNodes.add(new DefaultNodeImpl("GrandChild 1", "play-circle"));
 		subSubNodes.add(new DefaultNodeImpl("GrandChild 2", "play-circle"));
-		child5.getSubNodes().addAll(subSubNodes);
+		child5.getChilds().addAll(subSubNodes);
 		subNodes.add(child5);
 		
 		DefaultNodeImpl parent3 = new DefaultNodeImpl("Parent3", "signal");
 		parent3.setExpanded(false);
-		parent3.getSubNodes().addAll(subNodes);
+		parent3.getChilds().addAll(subNodes);
 		nodeList.add(parent3);
 		
-		
-		return nodeList;
+		rootNode.getChilds().addAll(nodeList);
+		return rootNode;
 	}
 	
-	public List<Node> getJsonModel2() {
+	public Node getJsonModel2() {
+		Node rootNode = new DefaultNodeImpl("root", "arrow-right").withBackColor("#119988");
+		
+		List<String> tags = new ArrayList<String>();
+		tags.add("TAG 1");
+		tags.add("TAG 2");
 		List<Node> nodeList = new ArrayList<Node>();
+		nodeList.add(new DefaultNodeImpl("Node1", "rocket").withUseFaIcons(true).withBackColor("#FFFF00").withColor("#0000FF").withTags(tags));
+		nodeList.add(new DefaultNodeImpl("Node2", "soccer-ball-o").withUseFaIcons(true).withDisabled(true));
+		
+		rootNode.getChilds().addAll(nodeList);
+		/*
 		Node n = new DefaultNodeImpl("Node1", "rocket");
 		n.setUseFaIcons(true);
 		
@@ -84,10 +97,10 @@ public class TestBean implements TreeNodeEventListener {
 		n1.setUseFaIcons(true);
 		
 		nodeList.add(n);
-		nodeList.add(n1);
+		nodeList.add(n1);*/
 		
 		
-		return nodeList;
+		return rootNode;
 	}
 
 	@Override
@@ -142,6 +155,11 @@ public class TestBean implements TreeNodeEventListener {
 	public void button2() {
 		System.out.println("SELECTED COLOR: " + selectedColor) ;
 		System.out.println("CLICKED: BUTTON 2");
+		
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO <h1>Ciao</h1>", "detail body <b>Ciao</b>"));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "WARN", "body"));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "body"));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "FATAL", "body"));
 	}
 	public void button3() {
 		System.out.println("SELECTED COLOR: " + selectedColor) ;

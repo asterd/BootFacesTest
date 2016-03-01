@@ -8,16 +8,15 @@
         <title>BootsFaces Basic Page</title>
     </h:head>
     <h:body>
-	    <h:form id="form1" prependId="false">
 	        <b:container id="mainContent">
 	            <b:row>
 	            	<b:column>
 	            		<h1>[Tree]: javascript complex implementation</h1>
 	            		
-	            		<b:tree value="#{test.jsonModel1}" nodeSelectionListener="#{test}" showCheckbox="true" update="chkItems" enableLinks="true" />
+	            		<b:tree renderRoot="false" value="#{test.jsonModel1}" nodeSelectionListener="#{test}" showCheckbox="true" update="chkItems" enableLinks="true" />
 	            		<br/>
 	            		<br/>
-	            		<b:tree value="#{test.jsonModel2}" nodeSelectionListener="#{test}" showCheckbox="true" update="chkItems" enableLinks="true" />
+	            		<b:tree showTags="true" renderRoot="true" value="#{test.jsonModel2}" nodeSelectionListener="#{test}" showCheckbox="true" update="chkItems" enableLinks="true" />
 	            		
 	            	</b:column>
 	            </b:row>
@@ -25,7 +24,6 @@
 	            	<b:inputText id="chkItems" value="#{test.checkedColumns}" />
 	            </b:row>
 	        </b:container>
-	    </h:form>
 	    <h:form id="form2">
 		    <b:container id="secondContent">
 		    	<b:row>
@@ -33,15 +31,20 @@
 	            		<h1>[DefaultCommand] and [ColorPicker]: </h1>
 	            		
 	            		<b:colorPicker value="#{test.selectedColor}" opacity="true" format="rgb" /> 
-				    	<b:inputText  /> 
+				    	<b:inputText id="input1" />
+				    	<b:inputText id="input2" />
+				    	<b:inputText id="input3" />
 				    	<b:commandButton id="button1" actionListener="#{test.button1}" value="Button1" ajax="true" />
-						<b:commandButton id="button2" actionListener="#{test.button2}" value="Button2" ajax="true" look="primary" />
+						<b:commandButton id="button2" actionListener="#{test.button2}" value="Button2" ajax="true" look="primary" update="growlMsg, standardMsg" />
 						<b:commandButton id="button3" actionListener="#{test.button3}" value="Button3" ajax="true" icon="plus-sign" look="success" />
 				    	<b:defaultCommand target="button2" />
 				    </b:column>
 				</b:row>
 		    </b:container>
 	    </h:form>
+	    <b:focus target="input3" />
+	    <b:growl id="growlMsg" globalOnly="true" placementFrom="top" showDetail="false" showSummary="true" allowDismiss="true" delay="100000" escape="true" />
+	    <b:messages id="standardMsg" globalOnly="true" />
 	    <!--  b:container id="thirdContent">
 	    	<b:row>
             	<b:column>
