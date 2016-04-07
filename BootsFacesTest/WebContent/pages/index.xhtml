@@ -4,54 +4,135 @@
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html">
-    <h:head>
-        <title>BootsFaces Basic Page</title>
-    </h:head>
+      
+	<h:head>
+	    <title>BootsFaces Basic Page</title>
+	</h:head>
     <h:body>
+    	<h:form id="form1">
 	        <b:container id="mainContent">
 	            <b:row>
 	            	<b:column>
 	            		<h1>[Tree]: javascript complex implementation</h1>
-	            		
-	            		<b:tree renderRoot="false" value="#{test.jsonModel1}" nodeSelectionListener="#{test}" showCheckbox="true" update="chkItems" enableLinks="true" />
+
+	            		<b:tree id="tree1" render-root="false" value="#{test.jsonModel1}" node-selection-listener="#{test}" update="chkItems pippo" showCheckbox="true" enableLinks="true" />
+	            	 	<br/>
+	            		<br/>
+	            		<b:tree show-tags="true" render-root="true" value="#{test.jsonModel2}" node-selection-listener="#{test}" update="chkItems" show-checkbox="true" enable-links="true" />
+	            		<b:inputText id="pippo" styleClass="test" value="#{test.checkedColumns}" />
 	            		<br/>
 	            		<br/>
-	            		<b:tree showTags="true" renderRoot="true" value="#{test.jsonModel2}" nodeSelectionListener="#{test}" showCheckbox="true" update="chkItems" enableLinks="true" />
-	            		
+	            		<h2>Statefull tree test</h2>
+	            		<b:tree render-root="true" value="#{test.treeModel}" show-checkbox="true" node-selection-listener="#{test}"  />
 	            	</b:column>
 	            </b:row>
 	            <b:row>
-	            	<b:inputText id="chkItems" value="#{test.checkedColumns}" />
+	            	<b:inputText id="chkItems" styleClass="test" value="#{test.checkedColumns}" />
 	            </b:row>
 	        </b:container>
+        </h:form>
 	    <h:form id="form2">
-		    <b:container id="secondContent">
+	       <b:container id="secondContent">
 		    	<b:row>
 	            	<b:column>
-	            		<h1>[DefaultCommand] and [ColorPicker]: </h1>
+	            		<h1>[DefaultCommand] and [ColorPicker]: ttt </h1>
 	            		
+	            		<b:colorPicker value="#{test.selectedColor}" opacity="true" format="rgb" swatches="#fff|#110|#f00|#0f0|#00f|#ff0|rgba(0,0,255,0.5)"/> 
 	            		<b:colorPicker value="#{test.selectedColor}" opacity="true" format="rgb" /> 
 				    	<b:inputText id="input1" />
-				    	<b:inputText id="input2" />
-				    	<b:inputText id="input3" />
-				    	<b:commandButton id="button1" actionListener="#{test.button1}" value="Button1" ajax="true" />
+				    	<b:inputText id="input2">
+				    		<b:focus />
+				    	</b:inputText>
+				    	<b:inputText id="input3" styleClass="pippo" value="#{test.testField2}"/>
+				    	<b:commandButton id="button1" actionListener="#{test.button1}" value="Button1" ajax="true" update="@(.pippo)" />
 						<b:commandButton id="button2" actionListener="#{test.button2}" value="Button2" ajax="true" look="primary" update="growlMsg, standardMsg" />
 						<b:commandButton id="button3" actionListener="#{test.button3}" value="Button3" ajax="true" icon="plus-sign" look="success" />
 				    	<b:defaultCommand target="button2" />
+				    	<b:messages id="standardMsg" globalOnly="true" />
 				    </b:column>
 				</b:row>
 		    </b:container>
 	    </h:form>
-	    <b:focus target="input3" />
-	    <b:growl id="growlMsg" globalOnly="true" placementFrom="top" showDetail="false" showSummary="true" allowDismiss="true" delay="100000" escape="true" />
-	    <b:messages id="standardMsg" globalOnly="true" />
-	    <!--  b:container id="thirdContent">
+	    
+	    <!--  b:focus target="input3" /-->
+	    
+	    <b:growl id="growlMsg" globalOnly="true" placement-from="bottom" showDetail="false" showSummary="true" allowDismiss="true" delay="100000" escape="true" />
+	    
+	    <b:container id="thirdContent">
 	    	<b:row>
             	<b:column>
-            		<h1>[Accordion]: </h1>
-					<b:button id="toggler" value="Spalten" style="float:right;" size="sm" iconAwesome="calculator"/>
+            		<h1>[Ajax Navigation]: </h1>
+            		<h:form id="nf">
+						<b:commandButton id="goToPage" value="Go in Ajax" size="sm" iconAwesome="flash" onclick="ajax:test.goToSecondPage();"/>
+						<b:commandButton id="goToPage2" value="Go to Example" size="sm" iconAwesome="flash" onclick="ajax:test.goToExamplePage();"/>
+			    	</h:form>
 			    </b:column>
 			</b:row>
-	    </b:container -->
+	    </b:container>
+	    <b:container id="forthContent">
+	    	<b:row>
+            	<b:column>
+            	
+            		<h:form id="pipppo" prependId="false">
+	            		<h1>[Data Tables]: </h1>
+	            		<b:dataTable value="#{dt.itemList}" 
+	            			customLangUrl="//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
+	            			id="dt1" var="item" dataTableProperties="#{dt.dp1}" 
+	            			responsive="true" paginated="false" >
+							  <h:column>
+							    <f:facet name="header">
+							      <h:outputText value="Title" />
+							    </f:facet>
+							    <h:outputText value="#{item.title}"/>
+							  </h:column>
+							  <h:column>
+							    <f:facet name="header">
+							      <h:outputText value="Year" />
+							    </f:facet>
+							    <h:inputText value="#{item.year}"/>
+							  </h:column>
+							  <h:column>
+							    <f:facet name="header">
+							      <h:outputText value="Month" />
+							    </f:facet>
+							    <h:inputText value="#{item.month}"/>
+							  </h:column>
+	            		</b:dataTable>
+	            		
+	            		<b:dataTable 
+	            			value="#{dt.itemList}" id="dt2" 
+	            			var="item" dataTableProperties="#{dt.dp2}" 
+	            			lang="it"
+	            			fixedHeader="true" pageLength="6" 
+	            			pageLengthMenu="[[6, 12, 18, -1], ['sei', 12, 18, 'All']]">
+							  <h:column>
+							    <f:facet name="header">
+							      <h:outputText value="Title" />
+							    </f:facet>
+							    <h:outputText value="#{item.title}"/>
+							  </h:column>
+							  <h:column>
+							    <f:facet name="header">
+							      <h:outputText value="Year" />
+							    </f:facet>
+							    <h:inputText value="#{item.year}"/>
+							  </h:column>
+							  <h:column>
+							    <f:facet name="header">
+							      <h:outputText value="Month" />
+							    </f:facet>
+							    <h:inputText value="#{item.month}"/>
+							  </h:column>
+	            		</b:dataTable>
+	            		<b:commandButton value="Send Table" size="sm"  iconAwesome="flash" process="@form" update="dt1, dt2"/>
+            		</h:form>
+            		<br/>
+            		<br/>
+
+            		
+
+			    </b:column>
+			</b:row>
+	    </b:container>
     </h:body>
 </html>

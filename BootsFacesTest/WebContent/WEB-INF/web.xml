@@ -34,6 +34,11 @@
 	  <param-name>BootsFaces_THEME</param-name>
 	  <param-value>cerulean</param-value>
 	</context-param>
+	<context-param>
+	  <param-name>BootsFaces_USE_VIEWPORT</param-name>
+	  <param-value>user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, width=device-width</param-value>
+	</context-param>
+
 	
 	<!--  Init page  -->
 	<welcome-file-list>

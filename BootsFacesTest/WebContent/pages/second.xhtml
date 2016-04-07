@@ -10,9 +10,49 @@
     <h:body>
         <b:container>
             <b:row>
+            	<b:column 
+                    col-xs="12" 
+                    col-sm="0" 
+                    col-md="0" 
+                    col-lg="0"
+                    style="text-align: center;">Ciao</b:column>
                 <b:column>
                     <h1>Hello, world Second Page!</h1>
+                    <h3>Test Accordion</h3>
+                    <b:accordion expanded-panels="panel1,panel3">
+                    	<b:panel id="panel1" title="Item 1">Content 1</b:panel>
+                    	<b:panel id="panel2" title="Item 2">Content 2</b:panel>
+                    	<b:panel id="panel3" title="Item 3">Content 3</b:panel>
+                    </b:accordion>
                     
+                    <h:form>
+	                    <b:inputText id="it" value="#{test.testField}" required="true" label="What's your age?" renderLabel="true">
+						    <f:convertNumber integerOnly="true" locale="it" />
+						</b:inputText>
+						<b:message for="it" />
+						<b:commandButton value="Send" process="@form" update="@form"/>
+						
+						<br/>
+						<br/>
+						<h1>Test Issue #326 (datePicker disabled)</h1>
+						<br/>
+						<br/>
+						<b:datepicker id="adate" showButtonPanel="true" changeMonth="true" lang="it"
+                                          changeYear="true" placeholder="Select a Date"
+                                          value="#{test.date}" />
+                        <br/>
+                        <br/>
+                        <b:datepicker id="adate_disabled" disabled="true" showButtonPanel="true" changeMonth="true" lang="it"
+                                          changeYear="true" placeholder="Select a Date"
+                                          value="#{test.date}" />
+                                          
+                        <br/>
+                        <br/>
+                        <h1>Test Issue #329 (b:badge nested properties)</h1>
+                        <b:badge value="#{test.applyNestedValue(test.info)}" />
+                        <b:badge value="#{test.info}" />
+                        <b:badge value="Ciao" />
+					</h:form>
                 </b:column>
             </b:row>
         </b:container>
